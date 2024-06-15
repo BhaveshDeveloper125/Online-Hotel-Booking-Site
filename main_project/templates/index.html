@@ -1,0 +1,842 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>G20 Hotel Booking Site</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="{% static 'registercss.css' %}">
+    <link rel="stylesheet" href="{% static 'style2.css' %}">
+    <style>
+    #abc::-webkit-scrollbar {
+        display: none;
+    }
+    #sorting-category{
+      height: 50px;
+      width: 100%;
+      background-color: #222831;
+      color: white;
+      font-family: Georgia, 'Times New Roman', Times, serif;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+      align-items: center;
+    }
+    #forgot_button{
+      height: 40px;
+      width: 75px;
+      background-color: #3d2d50;
+      color: whitesmoke;
+      border: 0px;
+    }
+    #finp{
+      margin-left: 7%;
+      background-color: #3d2d50;
+      border: 0px;
+      height: 50px;
+      color:white;
+    }
+    ::-webkit-scrollbar{display: block;}
+    .scrlbar::-webkit-scrollbar{
+      display: block;
+    }
+    .browseproperty::-webkit-scrollbar{
+      display: block;
+    }
+    .mostbooked::-webkit-scrollbar{
+      display: block;
+    }
+    .logindsgn{
+      border: 0px solid transparent;
+    }
+    .otherinfo a{
+      margin-left: 10%;
+    }
+    .middle{
+      margin-right: 20%;
+      margin-left: 20%;
+    }
+    .card-body{
+      box-shadow: 0px 0px 0px transparent;
+      overflow-x: auto;
+    }
+    .radio-style{
+      -webkit-appearance: none;
+      border-radius: 50%;
+      outline: none;
+      height: 40px;
+      width: 40px;
+      background-color: transparent;
+      border: 1px solid white;
+    }
+    .radio-style:checked {
+      background-color: #7fc7d9;
+      border-color: #7fc7d9;
+    }
+    .sort-by{
+      height: 40px;
+      width: 70px;
+      border: 1px solid white;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+      align-items: center;
+    }
+    #login_button_design{
+      height: 40px;
+      width: 100px;      
+    }
+    #sort-button{
+      background-color: #2d3250;
+      color: white;
+      font-size: 30px;
+      font-family: Georgia, 'Times New Roman', Times, serif;
+      border: 1px solid #2d3250;
+      height: 40px;
+      width: 100px;
+      transition-duration: 0.5s;
+    }
+    #sort-button:hover{
+      background-color: white;
+      color: #2d3250;
+    }
+    .card-text{
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      margin-left: 10%;
+      margin-right: 10%;
+    }
+    .card-body::-webkit-scrollbar{
+      display: none;
+    }
+    #suth{
+      height: 500px;
+      width: 100%;
+      background-color: red;
+    }
+    .hhh
+    {
+      height: 200px;
+      width: 50%;
+      margin-left: 25%;
+      overflow-x: auto;
+      overflow-y: auto;
+      box-shadow: 50px 50px 50px black;
+    }
+    .htable{
+      border: 1px solid black;
+    }
+    </style>
+  </head>
+  <body class="scrlbar">
+    <!--Dark Theme Button-->
+    <button type="button" class="btn btn-dark" id="dbutton" onclick="toggleTheme()">Dark Theme</button>
+    <!--Dark Theme Button--> 
+
+
+    <!--Navigation bar start-->
+    {% if user.is_authenticated %}
+    <div class="hellouser">
+      <h5>Hello,{{user.first_name}}</h5>
+    </div>
+    {% endif %}
+    
+    <div class="navigation"   style="position: sticky; z-index :1;">
+        <nav class="navbar navbar-expand-lg bg-body-tertiary" id="nb">
+            <div class="container-fluid" >
+              <a class="navbar-brand" href="#"></a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                  <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="">Home</a>
+                  </li>
+                  <!--start-->
+                  {% if user.is_authenticated %}
+                                <li class="nav-item"> 
+                                  <a class="nav-link" href="{% url 'about' %}">AboutUs</a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Category
+                                  </a>
+                                  <ul class="dropdown-menu" id="cdrop-menu">
+                                    <li class="ddlist"><a class="dropdown-item"  href="/hotels/1/">&#x2B50;</a></li>
+                                    <li class="ddlist"><a class="dropdown-item"  href="/hotels/2/">&#x2B50;&#x2B50;</a></li>
+                                    <li class="ddlist"><a class="dropdown-item"  href="/hotels/3/">&#x2B50;&#x2B50;&#x2B50;</a></li>
+                                    <li class="ddlist"><a class="dropdown-item"  href="/hotels/4/">&#x2B50;&#x2B50;&#x2B50;&#x2B50;</a></li>
+                                    <li class="ddlist"><a class="dropdown-item"  href="/hotels/5/">&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;</a></li>
+                                    <li class="ddlist"><a class="dropdown-item"  href="/hotels/6/">&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;</a></li>
+                                    <li class="ddlist"><a class="dropdown-item"  href="/hotels/7/">&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;</a></li>
+                                  </ul>
+                                </li>
+                                <li class="nav-item">
+                                  <a class="nav-link" href="{% url 'feedback' %}">Feedback</a>
+                                </li>
+                                
+                              
+                              <form class="d-flex" role="search"  action="{% url 'search' %}" method="get">
+                                {% csrf_token %} 
+                                <input class="form-control me-2" type="text" name="q"  placeholder="Search Hotel or City" required aria-label="Search">
+                                <button class="btn btn-outline" id="sbutton" type="submit" onclick="">Search</button>
+                              </form> 
+                  {% else %}
+
+                                <li class="nav-item"> 
+                                  <a class="nav-link" href="" tabindex="0" onclick="getalert()">AboutUs</a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"  tabindex="0" onclick="getalert()">
+                                    Category
+                                  </a>
+                                  <ul class="dropdown-menu" id="cdrop-menu"  tabindex="0" onclick="getalert()">
+                                    <li class="ddlist"><a class="dropdown-item"  href="/hotels/1/">&#x2B50;</a></li>
+                                    <li class="ddlist"><a class="dropdown-item"  href="/hotels/2/">&#x2B50;&#x2B50;</a></li>
+                                    <li class="ddlist"><a class="dropdown-item"  href="/hotels/3/">&#x2B50;&#x2B50;&#x2B50;</a></li>
+                                    <li class="ddlist"><a class="dropdown-item"  href="/hotels/4/">&#x2B50;&#x2B50;&#x2B50;&#x2B50;</a></li>
+                                    <li class="ddlist"><a class="dropdown-item"  href="/hotels/5/">&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;</a></li>
+                                    <li class="ddlist"><a class="dropdown-item"  href="/hotels/7/">&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;&#x2B50;</a></li>
+                                  </ul>
+                                </li>
+                                <li class="nav-item">
+                                  <a class="nav-link" href=""  tabindex="0" onclick="getalert()">Feedback</a>
+                                </li>
+                                
+                              
+                              <form class="d-flex" role="search"  action="" method="get" tabindex="0" onsubmit="getalert()">
+                                {% csrf_token %} 
+                                <input class="form-control me-2" type="text" name="q"  placeholder="Search Hotel or City" required aria-label="Search">
+                                <button class="btn btn-outline" id="sbutton" type="submit" onclick="">Search</button>
+                              </form> 
+
+                  {% endif %}
+                <!--end-->
+                <li class="nav-item">
+                  {% if user.is_authenticated %}
+                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" id="loginbutton">Logout</button>
+              <!--<a href="{% url 'logout' %}"><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#logout" id="loginbutton">Logout</button></a>-->
+                  {% else %}
+                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal" id="loginbutton">Login/SignUp</button>
+                  
+                  {% endif %}
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+    </div>
+    <!--Navigation bar ends-->
+    <br>
+
+
+    <!--Sorting Categories start-->
+    {% if user.is_authenticated %}
+    <form action="{% url 'sorting' %}" id="sorting-category" method="get" id="srtingid">
+      <div class="sort-by">Sort By : </div>
+      <h3>LowCost:</h3><input type="radio" name="sort_order" value="price_low_high" id="LowToHigh" class="radio-style">
+      <h3>HighCost:</h3><input type="radio" name="sort_order" value="price_high_low" id="HighToLow" class="radio-style">
+      <h3>LowCategory:</h3><input type="radio" name="sort_order" value="category_low_high" id="LowRated" class="radio-style">
+      <h3>HighCategory:</h3><input type="radio" name="sort_order" value="category_high_low" id="HighRated" class="radio-style">
+      <input type="submit" name="" id="sort-button" value="Sort" onclick="dropdown()">
+    </form>
+    {% else %}
+      <form action="" id="sorting-category" method="get" onsubmit="return getalert()">
+        <div class="sort-by">Sort By : </div>
+        <h3>LowCost:</h3><input type="radio" name="sort_order" value="price_low_high" id="LowToHigh" class="radio-style">
+        <h3>HighCost:</h3><input type="radio" name="sort_order" value="price_high_low" id="HighToLow" class="radio-style">
+        <h3>LowCategory:</h3><input type="radio" name="sort_order" value="category_low_high" id="LowRated" class="radio-style">
+        <h3>HighCategory:</h3><input type="radio" name="sort_order" value="category_high_low" id="HighRated" class="radio-style">
+        <input type="submit" name="" id="sort-button" value="Sort" onclick="dropdown()">
+      </form>
+    {% endif %}
+    <br><br>
+    <!--Sorting Categories ends-->
+
+
+    <!-- Warning starts -->
+    {% for i in messages %}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" id="warrning">
+    <strong>{{i}} : </strong> Please Enter Details Carefully
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+    <!-- warnings ends -->
+
+
+    <!-- Search Result starts "{% static 'images/c3.jpg' %}" -->
+    <div class="dropdown">
+      <button class="btn btn-secondary dropdown-toggle" id="sdbutton" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Search Results Will Appear here
+      </button>
+      <ul class="dropdown-menu">
+       <li>
+        <div class="search-heading" id="search-heading">
+          <h2 align="center">Searched Results</h2>
+        </div>
+        <br>
+     
+        <div class="search" id="search-result">
+
+    
+          <div id="search-result">
+            {% for i in results %}
+                <div class="properties">
+                    <a href="{% url 'rooms' i.pk %}">
+                        <div class="card" style="width: 18rem;">
+                          {% if i.images.first %}
+                            <img src="{{ i.images.first.cimg.url }}" class="card-img-top" alt="...">
+                                <!--<img src="{{ i.cimg.url }}" class="card-img-top" alt="{{ i.hotel.hname }}">-->
+                            {% endif %}
+                            <div class="card-body">
+                                <p class="card-text">     <b>{{i.hname}}</b><b class="middle">₹{{i.price}} for 24hr.</b><b>⭐: {{i.category_in_star}} Star Hotel</b>     </p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            {% empty %}
+                <p style="text-align: center;">No results found.</p>
+            {% endfor %}
+
+
+
+            <!-- category starts -->     
+      {% for i in cat %}
+      <div class="properties">
+          <a href="{% url 'rooms' i.pk %}">
+              <div class="card" style="width: 18rem;">
+                {% if i.images.first %}
+                  <img src="{{ i.images.first.cimg.url }}" class="card-img-top" alt="...">
+                      <!--<img src="{{ i.cimg.url }}" class="card-img-top" alt="{{ i.hotel.hname }}">-->
+                  {% endif %}
+                  <div class="card-body">
+                      <p class="card-text">     <b>{{i.hname}}</b><b class="middle">₹{{i.price}} for 24hr.</b><b>⭐: {{i.category_in_star}} Star Hotel</b>     </p>
+                  </div>
+              </div>
+          </a>
+      </div>
+  {% empty %}
+      <p></p>
+  {% endfor %}
+<!-- category ends -->
+
+
+
+{% for i in srting %}
+      <div class="properties">
+          <a href="{% url 'rooms' i.pk %}">
+              <div class="card" style="width: 18rem;">
+                {% if i.images.first %}
+                  <img src="{{ i.images.first.cimg.url }}" class="card-img-top" alt="...">
+                      <!--<img src="{{ i.cimg.url }}" class="card-img-top" alt="{{ i.hotel.hname }}">-->
+                  {% endif %}
+                  <div class="card-body">
+                      <p class="card-text" align="center">     <b>{{i.hname}}</b><b class="middle">₹{{i.price}} for 24hr.</b><b>⭐: {{i.category_in_star}} Star Hotel</b>     </p>
+                  </div>
+              </div>
+          </a>
+      </div>
+  {% empty %}
+      <p></p>
+  {% endfor %}
+
+  
+        </div>
+
+      </div>
+
+       </li>
+      </ul>
+    </div>
+    <!-- Searching Result ends -->
+
+
+    <!--Sliding Start-->
+    <div id="carouselExample" class="carousel slide">
+      <div class="carousel-inner">
+        {% for i in h5 %}
+        <div class="carousel-item active">
+          
+            <a href="{% url 'rooms' i.pk %}"><img src="{% static 'images/936465.jpg' %}" class="d-block w-100" alt="..."></a>
+          
+          
+        </div>
+        <div class="carousel-item">
+          <a href="{% url 'rooms' i.pk %}"><img src="{% static 'images/835201.jpg' %}" class="d-block w-100" alt="..."></a>
+        </div>
+        <div class="carousel-item">
+          <a href="{% url 'rooms' i.pk %}"><img src="{% static 'images/pexels-pixabay-258154.jpg' %}" class="d-block w-100" alt="..."></a>
+        </div>
+        <div class="carousel-item">
+          <a href="{% url 'rooms' i.pk %}"><img src="{% static 'images/pexels-prakhar-bansal-732199.jpg' %}" class="d-block w-100" alt="..."></a>
+        </div>
+        <div class="carousel-item">
+          <a href="{% url 'rooms' i.pk %}"><img src="{% static 'images/pexels-quark-studio-2506992.jpg' %}" class="d-block w-100" alt="..."></a>
+        </div>
+      </div>
+      {% endfor %}
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div>
+    <!--Sliding ends-->
+
+
+    <br><br>
+    <hr>
+    
+
+    <!--Popular Hotels starts-->
+    <h3 align="center" class="pdi">Trending Hotels of India</h3>
+    <h5 align="center" style="color: gray;">Most popular choices for travellers from India</h5>
+    {% if user.is_authenticated %}
+
+    <div class="cards">
+      <div class="mostbooked">
+        {% for i in h3 %}
+        <div class="properties">
+            <a href="{% url 'rooms' i.pk %}">
+            <div class="card" style="width: 18rem;">
+              {% if i.images.first %}
+                <img src="{{ i.images.first.cimg.url }}" class="card-img-top" alt="...">  <!--images is related name-->
+              {% endif %}
+              <div class="card-body">
+                <p class="card-text">     <b>{{i.hname}}</b><b class="middle">₹{{i.price}} for 24hr.</b><b>⭐: {{i.category_in_star}} Star Hotel</b>     </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    {% else %}
+
+    <div class="cards">
+      <div class="mostbooked" >
+        {% for i in h3 %}
+        <div class="properties" >
+            <a href="" tabindex="0" onclick="getalert()">
+            <div class="card" style="width: 18rem;">
+              {% if i.images.first %}
+                <img src="{{ i.images.first.cimg.url }}" class="card-img-top" alt="...">  <!--images is related name-->
+              {% endif %}
+              <div class="card-body">
+                <p class="card-text">     <b>{{i.hname}}</b><b class="middle">₹{{i.price}} for 24hr.</b><b>⭐: {{i.category_in_star}} Star Hotel</b>     </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    {% endif %}
+    
+    {% if user.is_authenticated %}
+
+    <div class="cards2">
+      {% for i in h4 %}
+      <div class="properties" id="abc"  style="overflow-x:auto;">
+          <a href="{% url 'rooms' i.pk %}">
+          <div class="card" style="width: 18rem;">
+            {% if i.images.first %}
+              <img src="{{ i.images.first.cimg.url }}" class="card-img-top" id="newmedia" alt="...">  <!--images is related name-->
+            {% endif %}
+            <div class="card-body"  style="height: 60px;">
+              <p class="card-text">     <b>{{i.hname}}</b><b class="middle">₹{{i.price}} for 24hr.</b><b>⭐: {{i.category_in_star}} Star Hotel</b>     </p>
+            </div>
+          </div>
+        </a>
+      </div>
+      {% endfor %}
+    </div> 
+
+    {% else %}
+
+    <div class="cards2">
+      {% for i in h4 %}
+      <div class="properties" id="abc"  style="overflow-x:auto;">
+          <a href="" tabindex="0" onclick="getalert()">
+          <div class="card" style="width: 18rem;">
+            {% if i.images.first %}
+              <img src="{{ i.images.first.cimg.url }}" class="card-img-top" alt="...">  <!--images is related name-->
+            {% endif %}
+            <div class="card-body"  style="height: 60px;">
+              <p class="card-text">     <b>{{i.hname}}</b><b class="middle">₹{{i.price}} for 24hr.</b><b>⭐: {{i.category_in_star}} Star Hotel</b>     </p>
+            </div>
+          </div>
+        </a>
+      </div>
+      {% endfor %}
+    </div> 
+
+
+    {% endif %}
+    <!--Popular Hotels ends-->
+
+
+    <br><br>
+    <hr>
+    <br><br>
+    <h1 align="center" class="pdi">
+      <b>
+       Most Luxurious Hotels
+      </b>
+    </h1>
+    
+
+    <!--Most Rated Hotels by Customers start-->  
+    {% if user.is_authenticated %}
+
+    <div class="browseproperty">
+      <br><br>
+
+        {% for i in lhotel %}
+        <div class="properties">
+          <a href="{% url 'rooms' i.pk %}">
+            <div class="card" style="width: 18rem;">
+              {% if i.images.first %}
+                    <img src="{{ i.images.first.cimg.url }}" class="card-img-top" alt="..."> <!--images is related name-->
+                {% endif %}
+              <div class="card-body">
+                <p class="card-text">     <b>{{i.hname}}</b><b class="middle">₹{{i.price}} for 24hr.</b><b>⭐: {{i.category_in_star}} Star Hotel</b>     </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        {% endfor %}
+
+    </div>
+
+    {% else %}
+
+    <div class="browseproperty">
+      <br><br>
+
+        {% for i in lhotel %}
+        <div class="properties">
+          <a href="" tabindex="0" onclick="getalert()">
+            <div class="card" style="width: 18rem;">
+              {% if i.images.first %}
+                    <img src="{{ i.images.first.cimg.url }}" class="card-img-top" alt="..."> <!--images is related name-->
+                {% endif %}
+              <div class="card-body">
+                <p class="card-text">     <b>{{i.hname}}</b><b class="middle">₹{{i.price}} for 24hr.</b><b>⭐: {{i.category_in_star}} Star Hotel</b>     </p>
+              </div>
+            </div>
+          </a>
+        </div>
+        {% endfor %}
+
+    </div>
+
+    {% endif %}
+    <!--Most Rated Hotels by Customers ends-->
+    <br><br><br>
+    <hr>
+
+
+    <h1 align="center" class="pdi">
+      <b>
+        Top Booked Hotel Rooms
+      </b>
+    </h1>
+    <br><br>
+
+
+    <!--Top booked hotels/rooms start-->
+    
+    {% if user.is_authenticated %}
+    <div class="mostbooked" style="overflow-x: auto; white-space: nowrap;" >
+      {% for i in h1 %}
+      <div class="properties">
+          <a href="{% url 'rooms' i.pk %}">
+          <div class="card" style="width: 18rem;">
+            {% if i.images.first %}
+              <img src="{{ i.images.first.cimg.url }}" class="card-img-top" alt="...">  <!--images is related name-->
+            {% endif %}
+            <div class="card-body">
+              <p class="card-text">     <b>{{i.hname}}</b><b class="middle">₹{{i.price}} for 24hr.</b><b>⭐: {{i.category_in_star}} Star Hotel</b>     </p>
+            </div>
+          </div>
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+
+    {% else %}
+
+    <div class="mostbooked">
+      {% for i in h1 %}
+      <div class="properties">
+          <a href="" tabindex="0" onclick="getalert()">
+          <div class="card" style="width: 18rem;">
+              {% if i.images.first %}
+              <img src="{{ i.images.first.cimg.url }}" class="card-img-top" alt="...">  <!--images is related name-->
+              {% endif %}
+              <div class="card-body">
+              <p class="card-text">     <b>{{i.hname}}</b><b class="middle">₹{{i.price}} for 24hr.</b><b>⭐: {{i.category_in_star}} Star Hotel</b>     </p>
+              </div>
+          </div>
+          </a>
+      </div>
+      {% endfor %}
+  </div>
+    {% endif %}
+    <!--Top booked hotels/rooms ends-->
+    <br><br><br><br>
+
+
+
+    <!-- History starts -->
+    <div class="hhh">
+      {% if user.is_authenticated %}
+      {% for i in user_bookings %}
+      <div class="history">
+          <table border="1">
+            <tr class="htable">
+              <td class="htable">ID</td>
+              <td class="htable">Arrival Time</td>
+              <td class="htable">Departure Time</td>
+              <td class="htable">Booked Rooms</td>
+              <td class="htable">Price</td>
+              <td class="htable">Hotel</td>
+              <td class="htable">Cancel Booking</td>
+            </tr>
+            <tr class="htable">
+              <td class="htable"> {{ i.id }}</td>
+              <td class="htable">{{ i.ariival_date }} </td>
+              <td class="htable">{{ i.departure_date }}</td>
+              <td class="htable">{{ i.booked_room_count }}</td>
+              <td class="htable">{{ i.total_price }}</td>
+              <td class="htable">{{ i.hotel }}</td>
+              <td class="htable">
+                <form action="{% url 'index' %}" method="post">
+                  {% csrf_token %}
+                  <input type="hidden" name="booking_id" value="{{i.id}}">
+                    <!-- #region -->
+                                          <!-- Button trigger modal -->
+                      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Cancel 
+                      </button>
+
+                      <!-- Modal -->
+                      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h1 class="modal-title fs-5" id="exampleModalLabel"></h1>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body" style="color: whitesmoke;">
+                              Are you sure that you want to cancel your booking ??
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                              <button value="cancel" style="width: 100px; height: 30px;margin-left:20px;margin-top:20px;border-radius: 7px; background-color:#222831;color:aliceblue;">Yes</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    <!-- #endregion -->
+                  
+                </form>
+              </td>
+            </tr>
+          </table>
+          <br><br>
+    </div>
+    {% empty %}
+      <p>No bookings found.</p>
+    {% endfor %}
+
+    {% endif %}
+    </div>
+    <!-- History ends -->
+
+    <!--Footer starts-->
+    <footer>
+      <div class="ftr">
+        <!--Social media links start-->
+       <div class="social">
+        <a href="http://www.instagram.com" class="sociallinks"><img src="{% static 'images/insta.png' %}" alt="" id="insta"></a>
+        <a href="http://www.facbook.com" class="sociallinks"><img src="{% static 'images/facebook.png' %}" alt="" id="face"></a>
+        <a href="http://www.twitter.com" class="sociallinks"><img src="{% static 'images/twitter.png' %}" alt="" id="tweet"></a>
+        <a href="http://www.youtube.com" class="sociallinks"><img src="{% static 'images/yt.png' %}" alt="" id="yt"></a>
+       </div>
+       <!--Social media link ends-->
+       
+       <!--Other Information starts-->
+       <div class="otherinfo">
+        <br>
+        <a href="{% url 'about' %}">AboutUs</a>
+        <a href="{% url 'feedback' %}">Feedback</a>
+        <!-- <a href="{% url 'hotelogin' %}">Hotels Login</a> -->
+        <a href="{% url 'addhotel' %}">ADD YOUR HOTEL ON OUR SITE</a>
+        <a href="{% url 'privacy' %}">Privacy</a>
+        <a href="{% url 'tc' %}">Terms of use</a>
+       </div>
+       <!--Other information ends-->
+
+       <!--Copyright starts-->
+       <br><br><br><br>
+       <h5 align="center" style="color: white;">
+        &copy;NGCCA G20 Project WORK
+       </h5>
+       <!--copyright ends-->
+
+      </div>
+    </footer>
+    <!--Footer ends-->
+
+
+
+    
+    <!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------>
+
+
+    <script>
+      var isDark = false;
+
+      function toggleTheme() {
+        var button = document.getElementById("dbutton");
+      
+        if (!isDark) {
+          document.body.style.backgroundColor = "rgba(0, 0, 0, 0.855)";
+          document.body.style.color = "white";
+          button.innerHTML = "Light Theme";
+          isDark = true;
+        } else {
+          document.body.style.backgroundColor = "white";
+          document.body.style.color = "black";
+          button.innerHTML = "Dark Theme";
+          isDark = false;
+        }
+      }
+
+
+    function getalert()
+    {
+      alert('Please Login first for further process')
+    }
+
+    function cancelalert()
+    {
+      alert('Your Booking is canceled..')
+    }
+
+
+    function showAlert(e) {
+      e.preventDefault();  
+      alert('Please login to continue');
+
+
+      
+      
+  }
+    </script>
+
+
+    <!--Login Modals-->
+
+      <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="loginModalLabel">Login</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+             
+          <form action="{% url 'login' %}" method="post">
+                {% csrf_token %}
+                <input type="text" name="username"  placeholder="     username" class="logindsgn" required><br><br>
+                <input type="password" name="password"  placeholder="     password" class="logindsgn" required><br><br>
+                <p align="right">
+                
+              </p>
+              
+            
+            <div class="modal-footer">
+              <!--<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>-->
+              <a href="{% url 'password_reset' %}">Forgot Password?</a>
+              <input type="submit" value="Login" id="login_button_design" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal">
+                <!--<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal">Login</button>--> 
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signupModal">SignUp</button>
+                
+            </div>
+          </form>
+        </div>
+          </div>
+        </div>
+        </div>
+
+    <!--Login Modal ends-->
+
+
+    <!--SignUp Modals Starts-->
+    <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="signupModalLabel">SignUp</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+         <form action="{% url 'register' %}"  class="loginfrm" method="post">
+          {% csrf_token %}
+          <input required type="text" name="first_name" placeholder="                  First Name" class="signdsgn" style="border: 0px solid transparent;">
+          <input required type="text" name="last_name" placeholder="                 Second Name" class="signdsgn" style="border: 0px solid transparent;">
+          <input required type="text" name="username" placeholder="                  username" class="signdsgn" style="border: 0px solid transparent;">
+          <input required type="email" name="email" placeholder="                  E-mail" class="signdsgn" style="border: 0px solid transparent;">
+          <input required type="password" name="password1" placeholder="                 Password" class="signdsgn" style="border: 0px solid transparent;">
+          <input required type="password" name="password2" placeholder="            Confirm Password" class="signdsgn" style="border: 0px solid transparent;">
+          <input type="text" name="" placeholder="    Please login after SignUp" class="signdsgn" readonly style="border: 0px solid transparent;">
+         
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" >Close</button>
+          <input type="submit" class="btn btn-primary" placeholder="Signup" style="width: 100px; height: 40px;">
+        </div>
+      </form>
+      </div>
+    </div>
+    </div>
+    <!--SignUp Modals ends-->
+
+
+    <!-- Logout warning starts -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Logout</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="model-font">
+        Are you Sure you want to logout from our site ??
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">NO</button>
+        <a href="{% url 'logout' %}"><button type="button" class="btn btn-primary">Logout</button></a>
+      </div>
+    </div>
+  </div>
+    </div>
+    <!-- Logout warning ends -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  </body>
+</html>

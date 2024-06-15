@@ -1,0 +1,237 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>G20 Bookings</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+
+    <link rel="stylesheet" href="{% static 'style1.css' %}">
+    <link rel="stylesheet" href="{% static 'room.css' %}">
+    <style>
+        .payment{
+            display: none;
+            height: 100px ;
+            width: 100%;
+            border: 1.5px solid green;
+            text-align: center;
+            position: absolute;
+            height: 500px;
+            width: 500px;
+            top: 50px;
+            left: -400px;
+            background-color: #222831;
+            color: white;
+            border: 0px;
+        }
+        .formcss{
+            height: 7%;
+            width: 100%;
+            border-radius: 17px;
+            opacity: 70%;
+            text-align: center;
+        }
+        .photos{
+            overflow-y: auto;
+            height: 550px;
+            width: 800px;
+        }
+        .photos > img{
+            width: 10%;
+            height: 490px;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            border: 2px solid black;
+            border-radius: 20px;
+            transition-duration: 0.5s;
+            overflow: auto;
+            margin-top: 4%;
+        }
+        .photos > img:hover{
+            width: 200%;
+            scale: 1.1;
+            border-radius: 10px;
+        }
+        .info{
+            margin-left: -100px;
+        }
+        .photos::-webkit-scrollbar {
+            display: none;
+        }
+        .paybutton{
+           margin-left: 80%;
+           margin-top: -50%;
+        }
+    </style>
+</head>
+<body>
+    
+    <h1 align="center" id="hname">{{h2.hname}}</h1>
+    <!-- Images start -->
+    <div class="photos">
+        {% for i in h2.images.all %}
+            <img src="{{i.img1.url}}" alt="" class="p">
+            <img src="{{i.img2.url}}" alt="" class="p">
+            <img src="{{i.img3.url}}" alt="" class="p">
+            <img src="{{i.img4.url}}" alt="" class="p">
+            <img src="{{i.img5.url}}" alt="" class="p">
+            <img src="{{i.img6.url}}" alt="" class="p">
+            <img src="{{i.img7.url}}" alt="" class="p">
+            <img src="{{i.cimg.url}}" alt="" class="p">
+            <img src="{{i.main_img.url}}" alt="" class="p">
+        {% endfor %}
+    </div>
+    <!-- Images ends-->
+    
+    <!--User rooms booking starts-->
+    <div class="info">
+        <h2 align="center"></h2> <br>
+        <form  method="post" action="{% url 'bookinghotel' h2.pk %}">
+            {% csrf_token %}
+            <h2 id="ppr">Availabel Rooms : {{h2.rooms}}</h2>
+            <h2>Enter Number of  Rooms : </h2> <input min="0" type="number" name="rooms" id="avl_rooms" required class="formcss"> <br>
+            <h2>Person :  <b>{{h2.per}} person per room allowed</b></h2><br>
+            <h2>Arrival : </h2>  <input type="date" min="" name="arrival"  id="arrival" placeholder="Arrival Time" required class="formcss">  <br>
+            <h2>Departure : </h2>  <input type="date" min="" name="departure"  id="departure" placeholder="Departure Time" required class="formcss">  <br>
+            <input type="hidden" id="totalPrice" name="totalPrice">
+
+            
+            <!--price-->
+            <div class="price">
+                <h4 align="center"><b>per room ₹ <span id="roomPrice">{{h2.price}}</span> for 1 day</b></h4> <br><br><br>
+            </div>
+            <br><br>
+            <!--price-->    
+            <button type="button" onclick="toggleBox(); calculatePrice()" id="btn" style="z-index: 0;">Book</button>
+
+
+            <div class="payment">
+                <h4 id="priceDisplay" style="color: white;"></h4>
+                <b style="color: white;">{{h2.per}} person per room allowed</b><br> <br><br><br><br>
+                <!--<input type="number" name="card_number" placeholder="ENTER THE CARD NUMBER" min="0">-->
+                <b><input type="submit" value="Payment" id="btn" style="z-index: 1;" class="paybutton"></b>
+              </div>
+
+              {% for i in messages %}
+              <div class="alert alert-danger alert-dismissible fade show" role="alert" id="warrning">
+              <strong>{{i}} : </strong> Please Enter Details Carefully
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+              {% endfor %}
+        </form><br>
+    </div>
+    <!--User rooms booking ends-->
+
+    <br> <br><br><br><br>
+
+
+    <br><br><br><br><br>
+    {% for i in h2.images.all|slice:":1" %}
+        <div class="main-img">
+            <img src="{{i.main_img.url}}" alt=""> <!--images is related name-->
+        </div>
+        {% endfor %}
+    <br><br><br><br><br>
+
+    <!-- Other info starts -->
+    <div class="Oinfo">
+        <div class="description">
+            <h2>About this hotel : </h2><p>{{h2.about}}</p>
+
+                <br><br>
+            <h3><b>Location : </b> <p>{{h2.address}}</p>
+            </h3>
+        </div>
+    </div>
+    <!-- Other info Ends -->
+
+      <!-- go to homepage -->
+      <a href="{% url 'index' %}" ><button class="hp">HomePage</button></a>
+      <!-- go to homepage -->
+      <br><br><br><br><br>
+
+    <!-- Feed back starts -->
+    <div class="feedback">
+        <h1 align="center" class="sharereview">Please Share Your Review About This Hotel</h1>
+        <br><br>
+        <form method="post" action="">
+            {% csrf_token %}
+                    <label  class="feedinput"  for="exampleInputEmail1">Name : </label>
+                    <input class="feedinput" type="text" placeholder="Name" aria-label="default input example" name="name" required>
+                  <br><br>
+                  <div>
+                    <label  class="feedinput"  for="exampleInputEmail1">Email : </label>
+                    <input type="email" class="feedinput" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Email ID" name="email" required>
+                  </div>
+                  <br><br>
+                  <div>
+                    <label  class="feedinput"  for="exampleFormControlTextarea1">Feedback : </label>
+                    <!--<input type="text" name="feedbackfromuser" id="">-->
+                    <textarea class="feedinput" id="exampleFormControlTextarea1" rows="3" name="feedbackfromuser" placeholder="Feedback" required></textarea>
+                  </div> <br><br>
+                  <button type="submit" class="btn btn-primary" id="submitbutton" style="position: sticky;" >Comment</button>
+        </form>
+            </div>
+    <!-- Feed back ends -->
+
+
+    <!-- comment box start -->
+    <div class="commentbox">
+        <h2>Comments</h2>
+        {% for i in comment %}
+                <div class="usercomment">
+                    <label for="">Name : {{i.name}}</label>
+                     <hr>
+                     <p>{{i.feedback}}</p>
+                 </div>  
+                 {% endfor %}
+    </div>
+
+
+    <script>
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); 
+        var yyyy = today.getFullYear();
+
+        today = yyyy + '-' + mm + '-' + dd;
+        document.getElementById("arrival").setAttribute("min", today);
+        document.getElementById("departure").setAttribute("min", today);
+
+        function toggleBox() {
+            var box = document.querySelector(".payment");
+            if (box.style.display === "none") {
+              box.style.display = "block";
+            } else {
+              box.style.display = "none";
+            }
+          }
+
+          
+          function calculatePrice() {
+            var pricePerRoom = Number(document.getElementById('roomPrice').innerText);
+            var rooms = document.getElementById('avl_rooms').value;
+          
+            var arrivalDate = new Date(document.getElementById('arrival').value);
+            var departureDate = new Date(document.getElementById('departure').value);
+            var timeDifference = Math.abs(departureDate.getTime() - arrivalDate.getTime());
+            var days = Math.ceil(timeDifference / (1000 * 3600 * 24));
+          
+            var totalPrice = pricePerRoom * rooms * days;
+            document.querySelector('.payment h4').innerText = 'Total Price: ₹' + totalPrice;
+            document.querySelector('.payment').style.display = 'block';
+            document.getElementById('totalPrice').value = totalPrice;
+          }
+
+        window.addEventListener('DOMContentLoaded', (event) => {
+            var images = document.getElementsByTagName('img');
+            for (var i = 0; i < images.length; i++) {
+                images[i].setAttribute('loading', 'lazy');
+            }
+        });
+        
+
+    </script>
+</body>
+</html>

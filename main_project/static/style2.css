@@ -1,0 +1,159 @@
+
+@media (min-width : 300px) and (max-width : 400px)
+{
+  #dbutton{
+    height: 100px;
+    width: 100px;
+  } 
+  #srtingid{
+    width: 700px;
+  }
+  .cards{
+    width: 100%;
+    margin-left: 0px;
+  }
+  .card-img-top{
+    width: 100%;
+  }
+  .card-body{
+    height: 70px;
+    width: 100%;
+  }
+  .cards2{
+    width: 100%;
+  }
+  .newmedia{
+    width: 700px;
+    margin-right:100px;
+  }
+  .card{
+    width: 700px;
+  }
+  .property{
+    width: 500px;
+  }
+  .hhh{
+    width: 100%;
+    margin-left: 0px;
+  }
+  .history{
+    width: 100%;
+  }
+  tr{
+    width: 100%;
+  }
+  .ftr{
+    height: 100%;
+    width: 100%;
+  }
+  #insta{
+    position: absolute;
+    top: 3830px;
+    left: -50px;
+  }
+  #face{
+    position: absolute;
+    top: 3830px;
+    left: 100px;
+  }
+  #tweet{
+    position: absolute;
+    top: 3830px;
+    left: 200px;
+  }
+  #yt{
+    position: absolute;
+    top: 3830px;
+    left: 300px;
+  }
+  .otherinfo a{
+    display: block;
+    margin: 0px 0px 7px 100px;
+  }
+}
+@media (min-width : 400px) and (max-width : 500px)
+{
+  #dbutton{
+    height: 50px;
+    width: 200px;
+  } 
+  #sorting-category {
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .sort-by {
+    font-size: 14px;
+  }
+  h3 {
+    font-size: 12px;
+  }
+  .radio-style {
+    width: 20px;
+    height: 20px;
+  }
+  #sort-button {
+    width: 10%;
+    padding: 10px;
+    font-size: 10px;
+  }
+  .cards{
+    width: 100%;
+  }
+  .card-img-top{
+    width: 400px;
+    margin-right: 100px;
+  }
+  .card-body{
+    width: 400px;
+  }
+  .cards2{
+    width: 100%;
+  }
+  .properties{
+    margin-right: 100px;
+  }
+  #newmedia{
+    width: 400px;
+  }
+  .card{
+    width: fit-content;
+  }
+  .properties{
+    width: fit-content;
+  }
+  #abc{
+    width: 400px;
+  }
+  .hhh{
+    margin-left: 0px;
+    width: 100%;
+  }
+  .ftr{
+    height: 100%;
+    width: 100%;
+  }
+  #insta{
+    position: absolute;
+    top: 3750px;
+    left: -50px;
+  }
+  #face{
+    position: absolute;
+    top: 3750px;
+    left: 100px;
+  }
+  #tweet{
+    position: absolute;
+    top: 3750px;
+    left: 200px;
+  }
+  #yt{
+    position: absolute;
+    top: 3750px;
+    left: 300px;
+  }
+  .otherinfo a{
+    display: block;
+    margin: 0px 0px 7px 100px;
+  }
+}

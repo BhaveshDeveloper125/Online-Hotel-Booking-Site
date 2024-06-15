@@ -1,0 +1,11 @@
+{% extends "admin/index.html" %}
+
+{% block extrahead %}
+<script>
+window.onload = function() {
+    if ({{ new_hotel_request }}) {
+        alert("A new hotel request has been added!");
+    }
+};
+</script>
+{% endblock %}

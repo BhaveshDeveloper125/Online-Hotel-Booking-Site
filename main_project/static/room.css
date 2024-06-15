@@ -1,0 +1,73 @@
+.price {
+    width: 250px;
+    left: 52px;
+}
+#btn{
+    position: absolute;
+    top: 600px;
+   left: -300px;
+}
+.feedback{
+    height: 350px;
+    width: 100%;
+    border: 1px solid transparent;
+    /*margin-left: 50%;*/
+}
+.feedinput{
+    width: 50%;
+    height: 40px;
+    border-radius: 10px ;
+    margin-left: 25%;
+}
+.sharereview{
+    font-size: 50px;
+}
+.hp{
+    
+    margin-left: 50%;
+    height: 50px;
+    width: 110px;
+    background-color: #222831;
+    color: white;
+    font-size: 20px;
+    border-radius: 10px;
+    transition-duration: 0.5s;
+}
+.hp:hover{
+    background-color: white;
+    color: #222831;
+    cursor: pointer;
+}
+#submitbutton{
+    margin-left: 50%;
+    height: 50px;
+    width: 100px;
+    background-color: #222831;
+    color: white;
+    font-size: 20px;
+    border-radius: 10px;
+    transition-duration: 0.5s;
+}
+#submitbutton:hover{
+    background-color: white;
+    color: #222831;
+    cursor: pointer;
+}
+.commentbox{
+    margin-top: 200px;
+    height: 500px;
+    width: 70%;
+    border: 1px solid rgba(128, 128, 128, 0.278);
+    margin-left: 13%;
+    border-radius: 20px;
+    overflow-y: auto;
+}
+.usercomment{
+    height: fit-content;
+    width: 90%;
+    border: 1px solid grey;
+    border-radius: 20px;
+    margin-top: 25px;
+    margin-left: 5%;
+    text-align: center;
+}

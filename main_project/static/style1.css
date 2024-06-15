@@ -1,0 +1,141 @@
+#hname{
+    font-size: 70px;
+    color: #002258;
+}
+.photos{
+    height: 500px;
+    width: 900px;
+    display: flex;
+    gap: 2px;
+
+}
+.photos > img{
+    width: 13.7%;
+    height: 500px;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    border: 2px solid black;
+    border-radius: 20px;
+    transition-duration: 0.5s;
+    overflow: auto;
+}
+.photos > img:hover{
+    width: 100%;
+    scale: 1.1;
+    border-radius: 10px;
+}
+.info{
+    background-image: linear-gradient( black, #002258 );
+    border: 3px solid  #00173e;
+    height: 500px;
+    width: 500px;
+    color: whitesmoke;
+    font-size: 16px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    position: absolute;
+    top: 170px;
+    left: 950px;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content   : center;
+}
+.div form {
+    height: 250px;
+    width: 250px;
+}
+#btn{
+    background-color:   #002258;
+    color: whitesmoke;
+    font-size: 20px;
+    height: 70px;
+    width: 300px;
+    position: relative;
+    left: 45%;
+    border-radius: 50px;
+    z-index: 1;
+    cursor: pointer;
+}
+#btn:hover{
+    background-color:   #002258b6 ;
+}
+#btn:active{
+    background-color: beige;
+    color: black;
+}
+.main-img{
+    height: 1080px;
+    width: 100%;
+    
+}
+.main-img >img{
+    height: 100%;
+    width: 100%;
+    border-radius: 70px;
+}
+.description >p{
+    font-size: 25px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.description h3 {
+    font-size: 25px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.btnclrstng{
+    background-color: rgba(0, 0, 0, 0.817);
+    height: 70px;
+    width: 300px;
+    border-radius: 50px;
+    position: absolute;
+    top: 765px;
+    left: 685px;
+    z-index: 0;
+}
+.price{
+    background-color: #2D3250;
+    color: white;
+    height: 50px;
+    width: 150px;
+    border: 1px solid black;
+    border-radius: 50px;
+    display: inline-block;
+    position: relative;
+    top: 80px;
+    left: 200px;
+}
+.photos >img:hover{
+    width: 250%;
+}
+.go_to_homepage{
+    height: 50px;
+    width: 150px;
+    background-color: #2D3250;
+    color: white;
+    font-size: 16px;
+    border: 2px solid burlywood;
+    border-radius: 25px;
+    position: relative;
+    top: 100px;
+    margin-left: 700px;
+    transition-duration: 0.5s;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.go_to_homepage:hover{
+    background-color: white;
+    color: black;
+
+}
+.go_to_homepage:active{
+    background-color: #2D3250;
+    color: aliceblue;
+}
+.go_to_homepage>a{
+    text-decoration: none;
+    color: white;
+}
